@@ -264,3 +264,37 @@ h2.sec-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-
 footer.site-footer { border-top: 1px solid var(--rule); padding: 44px 0; text-align: center; }
 footer .wordmark { justify-content: center; margin-bottom: 10px; display: inline-flex; }
 footer p { margin: 4px 0 0; font-size: 12px; color: var(--muted); letter-spacing: 0.03em; font-family: 'Jost', sans-serif; }
+
+/* ---- Perseus/Medusa faded hero background ---- */
+.hero-perseus { position: relative; overflow: hidden; }
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+  filter: grayscale(1) contrast(1.5) brightness(0.5);
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+.hero-perseus::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-perseus::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(6,6,6,0) 0%, rgba(6,6,6,0.55) 70%, rgba(6,6,6,0.94) 100%),
+    linear-gradient(180deg, rgba(6,6,6,0.4) 0%, rgba(6,6,6,0.15) 25%, rgba(6,6,6,0.85) 100%);
+}
+.hero-perseus .wrap, .hero-perseus .marquee-wrap { position: relative; z-index: 2; }
