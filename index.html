@@ -13,6 +13,7 @@
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Forge Digital","description":"Forge Digital builds websites for service businesses, then builds the follow-up, automation, and reporting system that turns traffic into revenue.","url":"https://babyjupiter96.github.io/forge-digital/","areaServed":"United States","email":"hello@forgedigital.co"}
 </script>
 <link rel="stylesheet" href="styles.css">
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
 <header class="nav">
   <div class="wrap nav-row">
     <a href="index.html" class="wordmark">FORGE <span>&middot;</span> DIGITAL</a>
@@ -78,6 +79,58 @@
         </div>
       </div>
       <div class="teaser-cta"><a href="services.html" class="btn">See What We Build</a></div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="block ai-showcase" id="ai">
+    <div class="wrap">
+      <div class="ai-card" id="aiCard">
+        <div class="ai-card-glow" aria-hidden="true"></div>
+        <div class="ai-card-text">
+          <span class="eyebrow">AI Automation</span>
+          <h2 class="ai-title">AI that works <span class="hero-shine">before a lead goes cold.</span></h2>
+          <p class="ai-subhead">Every lead gets an immediate response, intelligent follow-up, and a path toward booking &mdash; without your team having to chase them.</p>
+          <p>Forge connects your website, CRM, email, SMS, and AI into one automated follow-up system that works 24/7. When a lead comes in, the system can respond instantly, answer questions, qualify the opportunity, follow up when they go quiet, and move qualified prospects toward a booked appointment.</p>
+          <p class="ai-body-tight">Your team steps in when the conversation is worth having.</p>
+          <div class="ai-flow" aria-hidden="true">
+            <span>New Lead</span>
+            <span class="ai-flow-arrow">&rarr;</span>
+            <span>AI Response</span>
+            <span class="ai-flow-arrow">&rarr;</span>
+            <span>Qualified</span>
+            <span class="ai-flow-arrow">&rarr;</span>
+            <span>Appointment Booked</span>
+          </div>
+          <div class="ai-cta-block">
+            <a href="contact.html" class="btn btn-solid">See What We Could Automate &rarr;</a>
+            <p class="ai-cta-sub">Bring us your current process. We&rsquo;ll show you where AI can save time, recover missed opportunities, and move more leads toward revenue.</p>
+          </div>
+        </div>
+        <div class="ai-card-scene">
+          <spline-viewer id="aiSpline" url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" loading-anim-type="none"></spline-viewer>
+          <div class="ai-eye-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="ai-benefits">
+        <div class="ai-benefit">
+          <div class="ai-benefit-num">01</div>
+          <div><h3>Respond Instantly</h3><p>New lead comes in. AI responds in seconds &mdash; not tomorrow morning.</p></div>
+        </div>
+        <div class="ai-benefit">
+          <div class="ai-benefit-num">02</div>
+          <div><h3>Qualify Automatically</h3><p>Ask the right questions, understand intent, and separate serious opportunities from dead-end leads.</p></div>
+        </div>
+        <div class="ai-benefit">
+          <div class="ai-benefit-num">03</div>
+          <div><h3>Follow Up Without Chasing</h3><p>Keep conversations moving across SMS, email, and your existing systems until the lead takes the next step.</p></div>
+        </div>
+        <div class="ai-benefit">
+          <div class="ai-benefit-num">04</div>
+          <div><h3>Book More Opportunities</h3><p>Turn qualified conversations into booked calls, appointments, and real sales opportunities.</p></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -189,3 +242,35 @@
     <p style="margin-top:8px; opacity:0.6;">Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Perseus_with_the_Head_of_Medusa_(Perseo_con_la_testa_di_Medusa),_Loggia_dei_Lanzi,_Florence_(26072265963).jpg" style="color:inherit;">Dimitris Kamaras</a>, CC BY 2.0</p>
   </div>
 </footer>
+<script>
+  (function () {
+    var card = document.getElementById('aiCard');
+    if (!card) return;
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+    });
+  })();
+
+  (function () {
+    var sv = document.getElementById('aiSpline');
+    if (!sv) return;
+    function hideWatermark() {
+      var root = sv.shadowRoot;
+      if (!root) return false;
+      var logo = root.getElementById ? root.getElementById('logo') : root.querySelector('#logo');
+      if (logo) {
+        logo.style.display = 'none';
+        return true;
+      }
+      return false;
+    }
+    if (hideWatermark()) return;
+    var tries = 0;
+    var poll = setInterval(function () {
+      tries += 1;
+      if (hideWatermark() || tries > 100) clearInterval(poll);
+    }, 100);
+  })();
+</script>
