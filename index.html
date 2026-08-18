@@ -21,6 +21,9 @@
       <li><a href="work.html">Work</a></li><li><a href="services.html">Services</a></li><li><a href="work-with-us.html">Work With Us</a></li><li><a href="process.html">Process</a></li>
     </ul>
     <a href="contact.html" class="btn btn-solid">Book a Free Growth Audit</a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+    </button>
   </div>
 </header>
 <main>
@@ -108,7 +111,7 @@
             <p class="ai-cta-sub">Bring us your current process. We&rsquo;ll show you where AI can save time, recover missed opportunities, and move more leads toward revenue.</p>
           </div>
         </div>
-        <div class="ai-card-scene">
+        <div class="ai-card-scene" id="aiScene">
           <spline-viewer id="aiSpline" url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" loading-anim-type="none"></spline-viewer>
           <div class="ai-eye-glow" aria-hidden="true"></div>
         </div>
@@ -242,6 +245,7 @@
     <p style="margin-top:8px; opacity:0.6;">Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Perseus_with_the_Head_of_Medusa_(Perseo_con_la_testa_di_Medusa),_Loggia_dei_Lanzi,_Florence_(26072265963).jpg" style="color:inherit;">Dimitris Kamaras</a>, CC BY 2.0</p>
   </div>
 </footer>
+<script src="nav.js" defer></script>
 <script>
   (function () {
     var card = document.getElementById('aiCard');
@@ -254,23 +258,48 @@
   })();
 
   (function () {
+    var scene = document.getElementById('aiScene');
+    if (!scene) return;
+    var maxOffset = 10;
+    scene.addEventListener('mousemove', function (e) {
+      var rect = scene.getBoundingClientRect();
+      var nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      var ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+      scene.style.setProperty('--eye-dx', (nx * maxOffset).toFixed(1) + 'px');
+      scene.style.setProperty('--eye-dy', (ny * maxOffset * 0.6).toFixed(1) + 'px');
+    });
+    scene.addEventListener('mouseleave', function () {
+      scene.style.setProperty('--eye-dx', '0px');
+      scene.style.setProperty('--eye-dy', '0px');
+    });
+  })();
+
+  (function () {
     var sv = document.getElementById('aiSpline');
     if (!sv) return;
-    function hideWatermark() {
+    var observing = false;
+    function findLogo(root) {
+      return root.getElementById ? root.getElementById('logo') : root.querySelector('#logo');
+    }
+    function hideAndWatch() {
       var root = sv.shadowRoot;
       if (!root) return false;
-      var logo = root.getElementById ? root.getElementById('logo') : root.querySelector('#logo');
-      if (logo) {
-        logo.style.display = 'none';
-        return true;
+      var logo = findLogo(root);
+      if (!logo) return false;
+      logo.style.display = 'none';
+      if (!observing) {
+        observing = true;
+        new MutationObserver(function () {
+          if (logo.style.display !== 'none') logo.style.display = 'none';
+        }).observe(logo, { attributes: true, attributeFilter: ['style'] });
       }
-      return false;
+      return true;
     }
-    if (hideWatermark()) return;
+    if (hideAndWatch()) return;
     var tries = 0;
     var poll = setInterval(function () {
       tries += 1;
-      if (hideWatermark() || tries > 100) clearInterval(poll);
+      if (hideAndWatch() || tries > 300) clearInterval(poll);
     }, 100);
   })();
 </script>
