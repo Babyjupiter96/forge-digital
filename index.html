@@ -13,7 +13,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Forge Digital","description":"Forge Digital builds websites for service businesses, then builds the follow-up, automation, and reporting system that turns traffic into revenue.","url":"https://babyjupiter96.github.io/forge-digital/","areaServed":"United States","email":"vandalbamis@gmail.com","telephone":"+1-509-251-9517"}
 </script>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
 <header class="nav">
   <div class="wrap nav-row">
@@ -112,9 +112,10 @@
             <p class="ai-cta-sub">Bring us your current process. We&rsquo;ll show you where AI can save time, recover missed opportunities, and move more leads toward revenue.</p>
           </div>
         </div>
-        <div class="ai-card-scene" id="aiScene">
+        <div class="ai-card-scene" id="aiScene" role="button" tabindex="0" aria-label="Chat with our AI">
           <spline-viewer id="aiSpline" url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" loading-anim-type="none"></spline-viewer>
           <div class="ai-eye-glow" aria-hidden="true"></div>
+          <span class="ai-chat-hint" aria-hidden="true">Chat with our AI &rarr;</span>
         </div>
       </div>
       <div class="ai-benefits">
@@ -251,7 +252,7 @@
      data-forge-base-url for the deployed platform URL before this ever
      ships live. -->
 <script
-  src="http://localhost:4503/forge-widget.js?v=5"
+  src="http://localhost:4503/forge-widget.js?v=6"
   data-forge-embed-key="cmsxd5o300007ddb2vs2wbnc4"
   data-forge-base-url="http://localhost:3001"
 ></script>
@@ -280,6 +281,17 @@
     scene.addEventListener('mouseleave', function () {
       scene.style.setProperty('--eye-dx', '0px');
       scene.style.setProperty('--eye-dy', '0px');
+    });
+
+    function openChat() {
+      document.dispatchEvent(new CustomEvent('forge-widget:open'));
+    }
+    scene.addEventListener('click', openChat);
+    scene.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openChat();
+      }
     });
   })();
 
